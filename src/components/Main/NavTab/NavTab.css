@@ -1,0 +1,38 @@
+.navtab {
+  background-color: rgba(245, 245, 245, 1);
+  margin: 0;
+  padding: 0;
+}
+
+.navtab__links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navtab__link {
+  cursor: pointer;
+  margin: 24px 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height, or 123% */
+
+  display: flex;
+  align-items: center;
+  text-decoration-line: underline;
+  
+
+  color: #000000;
+}
+
+@media screen and (max-width: 320px) {
+  .navtab__link {
+    font-size: 11px;
+    margin: 25px 12px;
+  }
+}
