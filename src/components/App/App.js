@@ -4,13 +4,15 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import NotFound from '../NotFound/NotFound';
 
+
 function App() {
   return (
     <>
-      {/* <Header />
+      <Header />
       <Main />
-      <Footer /> */}
-      <NotFound />
+      {/* <Footer />
+      <NotFound /> */}
+
     </>
   );
 }
