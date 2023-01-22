@@ -1,4 +1,4 @@
-import headerLogo from "../../images/header-logo.svg";
+import headerLogo from '../../images/header-logo.svg';
 // import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -8,7 +8,8 @@ export default function Login() {
       <form className="register__form">
         <h1 className="form__header">Рады видеть!</h1>
         <fieldset className="form__fieldset">
-          <label className="form__label">E-mail
+          <label className="form__label">
+            E-mail
             <input
               id="email__input"
               name="email"
@@ -19,7 +20,8 @@ export default function Login() {
             />
             <span className="form__input-error" />
           </label>
-          <label className="form__label">Пароль
+          <label className="form__label">
+            Пароль
             <input
               id="password__input"
               name="password"

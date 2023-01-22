@@ -1,6 +1,6 @@
-import "./AboutProject.css";
+import './AboutProject.css';
 
-export default function AboutProject () {
+export default function AboutProject() {
   return (
     <div className="about">
       <h1 className="about__title">О проекте</h1>
@@ -21,5 +21,5 @@ export default function AboutProject () {
         <p className="about__text about__text-gray">Front-end</p>
       </div>
     </div>
-  )
+  );
 }

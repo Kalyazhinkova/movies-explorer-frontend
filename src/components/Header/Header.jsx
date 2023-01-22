@@ -1,11 +1,11 @@
-import headerLogo from "../../images/header-logo.svg";
+import headerLogo from '../../images/header-logo.svg';
 // import { Link } from "react-router-dom";
 // import { useContext } from "react";
-import Navigation from "../Navigation/Navigation";
+import Navigation from '../Navigation/Navigation';
 
 const Header = () => {
-  // const loggedIn = true;
-  const loggedIn = false;
+  const loggedIn = true;
+  // const loggedIn = false;
   return (
     <header className="header">
       <img src={headerLogo} alt="Логотип" className="header__logo" />
@@ -13,8 +13,8 @@ const Header = () => {
 
       {!loggedIn && (
         <div className="header__info">
-          <button className="header__link">Регистрация</button>
-          <button className="header__button">Войти</button>
+          <button className="header__link" type="button">Регистрация</button>
+          <button className="header__button" type="button">Войти</button>
         </div>
       )}
     </header>

@@ -1,6 +1,6 @@
-import "./NavTab.css";
+import './NavTab.css';
 
-export default function NavTab () {
+export default function NavTab() {
   return (
     <nav className="navtab">
       <ul className="navtab__links">
@@ -9,5 +9,5 @@ export default function NavTab () {
         <li className="navtab__link">Студент</li>
       </ul>
     </nav>
-  )
+  );
 }

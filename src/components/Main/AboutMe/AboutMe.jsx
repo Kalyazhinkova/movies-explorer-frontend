@@ -1,5 +1,5 @@
-import "./AboutMe.css";
-import myPhoto from "../../../images/my-photo.jpg";
+import './AboutMe.css';
+import myPhoto from '../../../images/my-photo.jpg';
 
 export default function AboutMe() {
   return (
@@ -30,7 +30,7 @@ export default function AboutMe() {
           </a>
         </div>
 
-        <img className="about-me__photo" alt="Мое фото" src={myPhoto}></img>
+        <img className="about-me__photo" alt="Мое фото" src={myPhoto} />
       </div>
     </div>
   );
