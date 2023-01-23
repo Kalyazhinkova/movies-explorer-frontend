@@ -3,7 +3,7 @@ import './AboutProject.css';
 export default function AboutProject() {
   return (
     <div className="about">
-      <h1 className="about__title">О проекте</h1>
+      <h1 className="about__title" id="about">О проекте</h1>
       <div className="about__table">
         <h2 className="about__subtitle">Дипломный проект включал 5 этапов</h2>
         <p className="about__text">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>

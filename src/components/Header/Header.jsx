@@ -1,22 +1,24 @@
-import headerLogo from '../../images/header-logo.svg';
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // import { useContext } from "react";
 import Navigation from '../Navigation/Navigation';
 
-const Header = () => {
-  const loggedIn = true;
-  // const loggedIn = false;
+const Header = (props) => {
+  const { loggedIn } = props;
+
   return (
     <header className="header">
-      <img src={headerLogo} alt="Логотип" className="header__logo" />
-      {loggedIn && <Navigation />}
+      <div className="header__groupe">
+        <Link to="/" className="header__logo" />
+        {loggedIn && <Navigation loggedIn={props} />}
 
-      {!loggedIn && (
+        {!loggedIn && (
         <div className="header__info">
-          <button className="header__link" type="button">Регистрация</button>
-          <button className="header__button" type="button">Войти</button>
+          <Link to="/signup" className="header__link">Регистрация</Link>
+          <Link to="/signin" className="header__button">Войти</Link>
         </div>
-      )}
+        )}
+      </div>
+
     </header>
   );
 };

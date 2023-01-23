@@ -1,8 +1,6 @@
-# Getting Started with Create React App
+Ссылка на макет проекта https://disk.yandex.ru/d/TV4CrCJcNQDoAA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+Начала разработки фронтенда для дипломного проекта Яндекс.Практикум
 
 In the project directory, you can run:
 

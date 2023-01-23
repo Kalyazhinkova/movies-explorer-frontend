@@ -1,7 +1,7 @@
 .promo {
   background-color: rgba(70, 93, 255, 1);
   margin: 0;
-  padding: 82px 0 6px 0;
+  padding: 156px 0 6px 0;
 }
 
 .promo__banner {
@@ -31,13 +31,13 @@
 
 @media screen and (max-width: 768px) {
   .promo {
-    padding: 224px 0 124px 0;
+    padding: 298px 0 124px 0;
   }
 }
 
 @media screen and (max-width: 320px) {
   .promo {
-    padding: 142 px 0 0;
+    padding: 279px 0 0;
   }
   .promo__banner {
     width: 248px;

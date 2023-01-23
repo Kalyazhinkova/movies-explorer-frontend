@@ -11,6 +11,7 @@
 .register__logo {
   width: 38px;
   height: 38px;
+  background-image: url('../../images/header-logo.svg');
 }
 
 .register__form {

@@ -1,15 +1,16 @@
-import "./Register.css";
-import headerLogo from "../../images/header-logo.svg";
-// import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import './Register.css';
+// import headerLogo from '../../images/header-logo.svg';
 
 export default function Register() {
   return (
     <div className="register">
-      <img src={headerLogo} alt="Логотип" className="register__logo" />
+      <Link to="/" className="register__logo" />
       <form className="register__form">
         <h1 className="form__header">Добро пожаловать!</h1>
         <fieldset className="form__fieldset">
-          <label className="form__label">Имя
+          <label className="form__label">
+            Имя
             <input
               id="name__input"
               name="userName"
@@ -20,7 +21,8 @@ export default function Register() {
             />
             <span className="form__input-error" />
           </label>
-          <label className="form__label">E-mail
+          <label className="form__label">
+            E-mail
             <input
               id="email__input"
               name="email"
@@ -31,7 +33,8 @@ export default function Register() {
             />
             <span className="form__input-error" />
           </label>
-          <label className="form__label">Пароль
+          <label className="form__label">
+            Пароль
             <input
               id="password__input"
               name="password"
@@ -51,9 +54,9 @@ export default function Register() {
 
           <span className="form__subtitle">
             Уже зарегистрированы?
-            <div className="form__link">Войти</div>
-            {/* <Link to="/sign-in" className="form__link"> */}
-            {/* </Link> */}
+            <Link to="/signin" className="form__link">
+              Войти
+            </Link>
           </span>
         </div>
       </form>
