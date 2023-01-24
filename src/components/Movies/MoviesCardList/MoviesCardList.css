@@ -2,15 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1280px;
 }
 
-.card-list {
+.movies__items {
+  max-width: 1280px;
   width: calc(100vw - 140px);
   display: grid;
   gap: 32px 28px;
   grid-template-columns: repeat(3, 1fr);
   padding: 80px 70px 60px 70px;
   margin: 0;
+  justify-content: center;
+}
+
+.movies__item {
+  list-style: none;
+  display: flex;
   justify-content: center;
 }
 
@@ -32,8 +40,8 @@
   color: #000000;
 }
 
-@media screen and (max-width: 768px) {
-  .card-list {
+@media screen and (max-width: 910px) {
+  .movies__items {
     width: calc(100vw - 76px);
     display: grid;
     gap: 35px 24px;
@@ -42,8 +50,8 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  .card-list {
+@media screen and (max-width: 560px) {
+  .movies__items {
     width: calc(100vw - 20px);
     display: grid;
     gap: 16px;

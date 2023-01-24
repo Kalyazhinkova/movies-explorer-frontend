@@ -2,6 +2,7 @@
   background-color: rgba(245, 245, 245, 1);
   margin: 0;
   padding: 0;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;;
 }
 
 .navtab__links {
@@ -14,7 +15,6 @@
 .navtab__link {
   cursor: pointer;
   margin: 24px 20px;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 13px;

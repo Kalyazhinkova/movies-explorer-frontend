@@ -1,8 +1,8 @@
-import "./NotFound.css";
+import './NotFound.css';
 
 export default function NotFound() {
   return (
-    <div className="not-found">
+    <main className="not-found">
       <article className="not-found__article">
         <h1 className="not-found__title">404</h1>
         <p className="not-found__text">Страница не найдена</p>
@@ -10,6 +10,6 @@ export default function NotFound() {
       <button type="button" className="not-found__button">
         Назад
       </button>
-    </div>
+    </main>
   );
 }

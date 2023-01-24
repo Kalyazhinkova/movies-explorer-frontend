@@ -4,7 +4,7 @@ export default function Login() {
   return (
     <div className="register">
       <Link to="/" className="register__logo" />
-      <form className="register__form">
+      <form className="register__form form">
         <h1 className="form__header">Рады видеть!</h1>
         <fieldset className="form__fieldset">
           <label className="form__label">

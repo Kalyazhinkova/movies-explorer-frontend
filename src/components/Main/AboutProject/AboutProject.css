@@ -1,6 +1,7 @@
 .about {
   margin: 0;
   padding: 110px 70px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
 .about__title {
@@ -8,7 +9,6 @@
   margin: 0;
   border-bottom: solid rgba(0, 0, 0, 1);
   text-align: left;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 22px;
@@ -29,7 +29,6 @@
 .about__subtitle {
   padding: 0;
   margin: 70px 0 0 0;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -42,7 +41,6 @@
 .about__text {
   padding: 0;
   margin: 0;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;

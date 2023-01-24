@@ -2,6 +2,7 @@
   background-color: rgba(70, 93, 255, 1);
   margin: 0;
   padding: 156px 0 6px 0;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
 .promo__banner {
@@ -18,7 +19,6 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 50px;
@@ -37,7 +37,7 @@
 
 @media screen and (max-width: 320px) {
   .promo {
-    padding: 279px 0 0;
+    padding: 216px 0 0;
   }
   .promo__banner {
     width: 248px;

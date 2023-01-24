@@ -1,7 +1,9 @@
 .search {
   display: flex;
-  padding: 144px 70px 70px 70px;
+  width: 100%;
+  padding: 144px 0 70px 0;
   border-bottom: solid 1px rgba(232, 232, 232, 1);
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
 }
 
 .search__form {
@@ -11,20 +13,21 @@
   width: 100%;
   justify-content: space-between;
   padding: 0;
-  margin: 0;
-  background: #f9f9f9;
+  margin: 0 70px;
+
   border-radius: 9px;
 }
 
-.search__fields {
+.search__form-fields {
   display: flex;
   align-items: center;
   border: none;
   margin: 0;
   padding: 19px;
+  background: #f9f9f9;
 }
 
-.search__fields_film {
+.search__form-fields_film {
   align-self: stretch;
   flex: 1 1;
   justify-content: space-between;
@@ -32,7 +35,7 @@
   padding-right: 30px;
 }
 
-.search__fields_film:after {
+.search__form-fields_film:after {
   background-color: rgba(232, 232, 232, 1);
   bottom: 16px;
   content: "";
@@ -42,7 +45,7 @@
   width: 1px;
 }
 
-.search__fields_shorts {
+.search__form-fields_shorts {
   padding-left: 30px;
 }
 
@@ -62,7 +65,6 @@
   padding: 0;
   border: none;
   background-color: #f9f9f9;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -84,9 +86,10 @@
   background-repeat: no-repeat;
   background-size: contain;
   border: none;
+  cursor: pointer;
 }
 
-.form__checkbox {
+.search__form-checkbox {
   position: relative;
   display: block;
   width: 36px;
@@ -98,7 +101,7 @@
   transition: 0.5s;
 }
 
-.form__checkbox:before {
+.search__form-checkbox:before {
   content: "";
   position: absolute;
   width: 16px;
@@ -111,18 +114,29 @@
   transition: 0.5s;
 }
 
-.form__checkbox:checked:before {
+.search__form-checkbox:checked:before {
   left: 18px;
 }
 
-.form__checkbox-text {
+.search__form-checkbox-text {
   cursor: pointer;
   margin: 0;
   padding: 0 0 0 14px;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
   color: #000000;
+}
+
+@media screen and (max-width: 550px) {
+.search__form {
+  flex-direction: column;
+  gap: 45px;
+}
+.search__form-fields_shorts {
+  margin: 0 auto;
+  padding: 0;
+  background: #ffffff;
+}
 }

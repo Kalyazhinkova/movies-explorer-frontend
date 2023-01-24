@@ -6,7 +6,7 @@ export default function MoviesCardList(props) {
 
   return (
     <article className="movies">
-      <ul className="card-list">
+      <ul className="movies__items">
         {movies.map((movie) => <MovieCard movie={movie} />)}
       </ul>
       <button type="button" className="movies__add">Ещё</button>

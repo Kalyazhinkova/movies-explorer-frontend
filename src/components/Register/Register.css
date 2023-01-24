@@ -6,12 +6,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-style: normal;
 }
 
 .register__logo {
   width: 38px;
   height: 38px;
-  background-image: url('../../images/header-logo.svg');
+  background-image: url("../../images/header-logo.svg");
 }
 
 .register__form {
@@ -21,8 +23,6 @@
 
 .form__header {
   margin: 40px 0 30px 0;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
@@ -42,8 +42,7 @@
   margin: 10px 0 0 0;
   display: flex;
   flex-direction: column;
-  font-family: "Inter";
-  font-style: normal;
+  text-align: left;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
@@ -54,21 +53,29 @@
   margin: 10px 0 10px 0;
   border: none;
   padding: 0;
-  width: 396px;
+  width: 366px;
   height: 46px;
   background: #f9f9f9;
   border-radius: 8px;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
   color: #000000;
 }
 
+.form__input[type="text"] {
+  padding: 0 15px;
+}
+
+.form__input[type="email"] {
+  padding: 0 15px;
+}
+
+.form__input[type="password"] {
+  padding: 0 15px;
+}
+
 .form__input-error {
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
@@ -78,8 +85,6 @@
 .form__subtitle {
   display: flex;
   justify-content: center;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -90,8 +95,6 @@
 .form__link {
   margin-left: 6px;
   cursor: pointer;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -109,8 +112,6 @@
   border-radius: 3px;
   border: none;
   cursor: pointer;
-  font-family: "Inter";
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -124,7 +125,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 450px) {
   .register {
     padding: 56px 0 0 0;
     margin: 0 calc(50% - 130px);

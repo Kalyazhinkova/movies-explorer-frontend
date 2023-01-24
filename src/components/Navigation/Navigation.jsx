@@ -36,7 +36,7 @@ export default function Navigation(props) {
       && (
       <div className={`navigation__right-menu ${isNavigationRightMenu ? 'navigation__right-menu_opened' : ''}`}>
         <button className="navigation__close-button" aria-label="navigation" type="button" onClick={closeRightMenu} />
-        <ul className="navigation__links_right">
+        <ul className="navigation__links navigation__links_right">
           <li>
             <Link to="/" className="navigation__link">Главная</Link>
           </li>

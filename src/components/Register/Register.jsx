@@ -4,9 +4,9 @@ import './Register.css';
 
 export default function Register() {
   return (
-    <div className="register">
+    <main className="register">
       <Link to="/" className="register__logo" />
-      <form className="register__form">
+      <form className="register__form form">
         <h1 className="form__header">Добро пожаловать!</h1>
         <fieldset className="form__fieldset">
           <label className="form__label">
@@ -60,6 +60,6 @@ export default function Register() {
           </span>
         </div>
       </form>
-    </div>
+    </main>
   );
 }
