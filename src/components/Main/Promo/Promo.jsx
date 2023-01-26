@@ -3,11 +3,11 @@ import banner from '../../../images/banner.svg';
 
 export default function Prom() {
   return (
-    <div className="promo">
+    <section className="promo">
       <img className="promo__banner" alt="Баннер" src={banner} />
       <p className="promo__text">
         Учебный проект студента факультета Веб-разработки.
       </p>
-    </div>
+    </section>
   );
 }

@@ -11,7 +11,7 @@
   display: grid;
   gap: 32px 28px;
   grid-template-columns: repeat(3, 1fr);
-  padding: 80px 70px 60px 70px;
+  padding: 10px 70px 60px 70px;
   margin: 0;
   justify-content: center;
 }
@@ -46,7 +46,7 @@
     display: grid;
     gap: 35px 24px;
     grid-template-columns: repeat(2, 1fr);
-    padding: 80px 38px;
+    padding: 10px 38px 80px 38px;
   }
 }
 
@@ -57,5 +57,8 @@
     gap: 16px;
     grid-template-columns: 1fr;
     padding: 50px 10px 80px 10px;
+  }
+  .movies__add {
+    width: 240px;
   }
 }

@@ -22,7 +22,7 @@ export default function Navigation(props) {
           <Link to="/movies" className="navigation__link">Фильмы</Link>
         </li>
         <li>
-          <Link to="/movies" className="navigation__link">Сохраненные фильмы</Link>
+          <Link to="/saved-movies" className="navigation__link">Сохраненные фильмы</Link>
         </li>
         <li>
           <Link to="/profile" className="navigation__account" />

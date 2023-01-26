@@ -2,7 +2,7 @@ import './Portfolio.css';
 
 export default function Portfolio() {
   return (
-    <div className="portfolio">
+    <section className="portfolio">
       <h2 className="portfolio__subtitle">Портфолио</h2>
       <ul className="portfolio__links">
         <li className="portfolio__link-style">
@@ -36,6 +36,6 @@ export default function Portfolio() {
           </a>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }

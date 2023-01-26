@@ -29,6 +29,7 @@ export default function SearchForm() {
           <label className="search__form-checkbox-text" htmlFor="shorts">Короткометражки</label>
         </fieldset>
       </form>
+      <div className="search__form-border" />
     </article>
   );
 }
