@@ -3,15 +3,16 @@
   flex-direction: column;
   align-items: center;
   max-width: 1280px;
+  width: 100%;
 }
 
 .movies__items {
   max-width: 1280px;
-  width: calc(100vw - 140px);
+  width: calc(100% - 140px);
   display: grid;
   gap: 32px 28px;
   grid-template-columns: repeat(3, 1fr);
-  padding: 10px 70px 60px 70px;
+  padding: 10px auto 60px auto;
   margin: 0;
   justify-content: center;
 }
@@ -42,17 +43,17 @@
 
 @media screen and (max-width: 910px) {
   .movies__items {
-    width: calc(100vw - 76px);
+    width: calc(100% - 76px);
     display: grid;
     gap: 35px 24px;
     grid-template-columns: repeat(2, 1fr);
-    padding: 10px 38px 80px 38px;
+    padding: 10px auto 80px auto;
   }
 }
 
 @media screen and (max-width: 560px) {
   .movies__items {
-    width: calc(100vw - 20px);
+    width: calc(100% - 20px);
     display: grid;
     gap: 16px;
     grid-template-columns: 1fr;

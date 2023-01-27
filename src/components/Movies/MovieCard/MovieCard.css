@@ -71,7 +71,10 @@
   background-repeat: no-repeat;
   box-sizing: border-box;
   border-radius: 30px;
-  transition: opacity 0.4s;
+}
+
+.movie__save-button:hover {
+  opacity: 0.6;
 }
 
 .movie__saved {

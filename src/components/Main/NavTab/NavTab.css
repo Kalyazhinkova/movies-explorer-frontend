@@ -25,7 +25,7 @@
   color: #000000;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .navtab__link {
     font-size: 11px;
     margin: 25px 12px;

@@ -94,10 +94,10 @@
   background-size: contain;
   border: none;
   cursor: pointer;
-  transition: opacity .4s;
 }
 
 .search__form-button:hover {
+  opacity: 0.6;
   background-color: rgba (249, 249, 249, 0.6);
 }
 
