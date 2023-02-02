@@ -1,3 +1,11 @@
+export const apiMainConfig = {
+  baseUrl: 'https://api.diploma.kalyazhinkova.nomoredomains.club',
+  headers: {
+    Authorization: '',
+    'Content-Type': 'application/json',
+  },
+};
+
 export const initialMovie = [
   {
     nameRU: 'В погоне за бенкси',

@@ -31,4 +31,5 @@ rules:
     "ignoreStrings": true,
     "ignoreTemplateLiterals": true
   }]
-  no-console: ["error", { allow: ["error"] }]
+  no-console: off
+  # no-console: ["error", { allow: ["error"] }]

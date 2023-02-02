@@ -1,6 +1,25 @@
+import { useState } from 'react';
 import './Profile.css';
 
-export default function Profile() {
+export default function Profile(props) {
+  const { onChange, onLogOut } = props;
+
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onChange({ name, email });
+  }
+
   return (
     <main className="profile">
       <form className="profile__form">
@@ -15,6 +34,7 @@ export default function Profile() {
                 type="text"
                 placeholder="Имя"
                 className="profile__input"
+                onChange={handleChangeName}
                 required=""
               />
             </span>
@@ -29,6 +49,7 @@ export default function Profile() {
                 type="email"
                 placeholder="e-mail"
                 className="profile__input"
+                onChange={handleChangeEmail}
                 required=""
               />
             </span>
@@ -36,13 +57,13 @@ export default function Profile() {
           </label>
         </fieldset>
         <div className="profile__submit">
-          <button type="submit" className="profile__submit-button">
+          <button type="submit" onSubmit={handleSubmit} className="profile__submit-button">
             Редактировать
           </button>
 
-          <button type="submit" className="profile__submit-button profile__submit_exit">Выйти из аккаунта</button>
-          {/* <Link to="/sign-in" className="profile__link"> */}
-          {/* </Link> */}
+          <button type="button" onClick={onLogOut} className="profile__submit-button profile__submit_exit">
+            Выйти из аккаунта
+          </button>
 
         </div>
       </form>

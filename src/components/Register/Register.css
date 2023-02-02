@@ -119,6 +119,12 @@
   color: #ffffff;
 }
 
+.form__submit-button:disabled {
+  background: #a0a0a0;
+  opacity: 0.6;
+  cursor: no-drop;
+}
+
 @media screen and (max-width: 768px) {
   .register {
     padding: 232px 0 0 0;
