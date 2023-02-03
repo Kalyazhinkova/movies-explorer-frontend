@@ -9,15 +9,14 @@ export default function Login(props) {
 
   function handleMessage() {
     if (statusRequest) {
-      console.log(statusRequest);
       switch (statusRequest) {
-        case 400:
+        case '400':
           setIsMessage('Ошибка в данных');
           break;
-        case 401:
+        case '401':
           setIsMessage('Пользователь не найден!');
           break;
-        case 500:
+        case '500':
           setIsMessage('Ошибка на сервере.');
           break;
         default:

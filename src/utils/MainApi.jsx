@@ -10,7 +10,7 @@ class MainApi {
       if (res.ok) {
         return data;
       }
-      return Promise.reject(new Error(`Ошибка: ${res.status} ${data.message}`));
+      return Promise.reject(new Error(res.status));
     });
   }
 
@@ -47,14 +47,35 @@ class MainApi {
       .then(this._handleResponse);
   }
 
-  setNewUserInfo(email, name) {
+  setNewUserInfo(data) {
     return fetch(`${this._config.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._config.headers,
-      body: JSON.stringify({
-        email,
-        name,
-      }),
+      body: JSON.stringify(data),
+    })
+      .then(this._handleResponse);
+  }
+
+  getAllMovies() {
+    return fetch(`${this._config.baseUrl}/movies`, {
+      headers: this._config.headers,
+    })
+      .then(this._handleResponse);
+  }
+
+  savedMovie(movie) {
+    return fetch(`${this._config.baseUrl}/movies`, {
+      method: 'POST',
+      headers: this._config.headers,
+      body: JSON.stringify(movie),
+    })
+      .then(this._handleResponse);
+  }
+
+  deleteMovie(id) {
+    return fetch(`${this._config.baseUrl}/movies/${id}`, {
+      method: 'DELETE',
+      headers: this._config.headers,
     })
       .then(this._handleResponse);
   }

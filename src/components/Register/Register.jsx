@@ -9,16 +9,15 @@ export default function Register(props) {
   const [isMessage, setIsMessage] = useState('');
 
   function handleMessage() {
-    console.log(statusRequest);
     if (statusRequest) {
       switch (statusRequest) {
-        case 400:
+        case '400':
           setIsMessage('Ошибка в данных');
           break;
-        case 'Error:409':
+        case '409':
           setIsMessage('Пользователь с такими данными уже существует');
           break;
-        case 500:
+        case '500':
           setIsMessage('Ошибка на сервере.');
           break;
         default:

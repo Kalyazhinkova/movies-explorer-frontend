@@ -1,12 +1,13 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/User';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-export const ProtectedRoute = ({ children }) => {
-  const currentUser = useContext(UserContext);
-  // const isAuthorized = currentUser.isAuth();
-  const isAuthorized = true;
+export const ProtectedRoute = ({ loggedIn, children }) => {
   const navigate = useNavigate();
-
-  return !isAuthorized ? children : navigate('/signin');
+  const location = useLocation();
+  if (!loggedIn && (location.pathname === '/signin' || location === '/signup')) {
+    return (navigate('/movies'));
+  }
+  if (!loggedIn) {
+    return (navigate('/'));
+  }
+  return children;
 };
