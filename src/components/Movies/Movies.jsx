@@ -63,7 +63,7 @@ export default function Movies({ loggedIn }) {
     setIsLoading(false);
   }, [searchTerm, isShorts]);
 
-  console.log(movies);
+  // console.log(movies);
 
   return (
     <main className="main">

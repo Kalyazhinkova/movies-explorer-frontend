@@ -7,6 +7,7 @@ export default function MovieCard(props) {
   // const { currentUser } = useContext(UserContext);
   // const isSaved = movie.saved.some((id) => id === currentUser._id);
   const isSaved = true;
+  console.log(movie);
   return (
     <li className="movies__item">
       <section className="movie">

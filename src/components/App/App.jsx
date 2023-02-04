@@ -90,7 +90,6 @@ function App() {
           setLoggedIn(true);
           localStorage.setItem('jwt', result.token);
           navigate('/movies');
-          console.log(currentUser);
         } else {
           console.log('Ошибка логина');
         }
