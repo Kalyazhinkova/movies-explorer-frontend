@@ -8,6 +8,10 @@ export default function Profile(props) {
   const { onChange, onLogOut, statusRequest } = props;
 
   const [isMessage, setIsMessage] = useState('');
+  const currentUser = useContext(CurrentUserContext);
+  const [email, setEmail] = useState(currentUser.email);
+  const [name, setName] = useState(currentUser.name);
+  const [buttonDisabled, setIsButtonDisabled] = useState(true);
 
   function handleMessage() {
     if (statusRequest) {
@@ -36,17 +40,13 @@ export default function Profile(props) {
     handleMessage();
   }, [statusRequest]);
 
-  const currentUser = useContext(CurrentUserContext);
-  const [email, setEmail] = useState(currentUser.email);
-  const [name, setName] = useState(currentUser.name);
-
   const {
     errors,
   } = useFormValidation();
 
-  // useEffect(() => {
-  //   setIsButtonDisabled(name === currentUser.name && email === currentUser.email);
-  // }, [name, email, currentUser.name, currentUser.email]);
+  useEffect(() => {
+    setIsButtonDisabled(name === currentUser.name && email === currentUser.email);
+  }, [name, email, currentUser.name, currentUser.email]);
 
   useEffect(() => {
     setName(currentUser.name);
@@ -82,7 +82,7 @@ export default function Profile(props) {
               Имя
               <input
                 id="name__input"
-                name="userName"
+                name="name"
                 type="text"
                 placeholder="Имя"
                 className="profile__input"
@@ -112,7 +112,7 @@ export default function Profile(props) {
         </fieldset>
         <span className="profile__input-error">{isMessage}</span>
         <div className="profile__submit">
-          <button type="submit" className="profile__submit-button">
+          <button type="submit" className="profile__submit-button" disabled={buttonDisabled}>
             Редактировать
           </button>
 

@@ -63,7 +63,7 @@ class MainApi {
       .then(this._handleResponse);
   }
 
-  savedMovie(movie) {
+  saveMovie(movie) {
     return fetch(`${this._config.baseUrl}/movies`, {
       method: 'POST',
       headers: this._config.headers,

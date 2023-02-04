@@ -5,6 +5,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import { counterCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
+import SavedMovies from './SavedMovies';
 
 export default function Movies({ loggedIn }) {
   const visibleCard = counterCard();
@@ -31,7 +32,7 @@ export default function Movies({ loggedIn }) {
       nameRU: beatMovie.nameRU,
       nameEN: beatMovie.nameEN,
       thumbnail: `https://api.nomoreparties.co${beatMovie.image.formats.thumbnail.url}`,
-      movieID: beatMovie.id,
+      movieId: beatMovie.id,
     };
     return newMovie;
   }
@@ -69,10 +70,15 @@ export default function Movies({ loggedIn }) {
         });
     }
     setIsLoading(false);
-  }, [searchTerm, isShorts]);
+  }, [searchTerm, isShorts, movies]);
 
-  const handleSavedCard = () => {
-    console.log(1);
+  const handleSavedCard = (movie) => {
+    const methodApi = movie.saved ? mainApi.deleteMovie(movie) : mainApi.saveMovie(movie);
+    methodApi
+      .then((updatedMovie) => {
+        setMovies((card) => card.map((flm) => (flm.movieId === updatedMovie.movieId ? updatedMovie : flm)));
+      })
+      .catch((err) => console.log(err));
   };
 
   const error = false;
