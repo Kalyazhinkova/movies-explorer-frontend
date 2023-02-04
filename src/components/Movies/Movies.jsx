@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import SearchForm from './SearchForm/SearchForm';
+import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
@@ -9,6 +10,7 @@ export default function Movies({ loggedIn }) {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isShorts, setIsShorts] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function readyMovie(beatMovie) {
     const newMovie = {
@@ -28,14 +30,12 @@ export default function Movies({ loggedIn }) {
   }
 
   const onSearch = (searchWord, shorts) => {
-    console.log(searchWord);
-    console.log(shorts);
     setSearchTerm(searchWord);
     setIsShorts(shorts);
   };
 
   useEffect(() => {
-    // здесь добавляю прелоадер
+    setIsLoading(true);
     const localMovies = JSON.parse(localStorage.getItem('storage-movies'));
     if (localMovies && localMovies.length > 0) {
       if (isShorts) {
@@ -60,7 +60,7 @@ export default function Movies({ loggedIn }) {
           }
         });
     }
-    // здесь убираю прелоадер
+    setIsLoading(false);
   }, [searchTerm, isShorts]);
 
   console.log(movies);
@@ -68,6 +68,7 @@ export default function Movies({ loggedIn }) {
   return (
     <main className="main">
       <SearchForm onSearch={onSearch} />
+      {isLoading && (<Preloader />)}
       <MoviesCardList movies={movies} />
     </main>
   );

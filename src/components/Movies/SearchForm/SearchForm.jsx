@@ -5,19 +5,19 @@ import useFormValidation from '../../../hooks/UseFormValidation';
 export default function SearchForm(props) {
   const {
     onSearch,
-    savedSearch = {},
   } = props;
   const [errorMessage, setErrorMessage] = useState('');
   const [search, setSearch] = useState('');
   const { values, isValid, handleChange } = useFormValidation();
+  const [isShorts, setIsShorts] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // if (true) {
-    onSearch(search, false);
-    // } else {
-    //   setErrorMessage('Введите слово для поиска!');
-    // }
+    if (isValid) {
+      onSearch(search, isShorts);
+    } else {
+      setErrorMessage('Введите слово для поиска!');
+    }
   }
 
   function handleChangeMovies(e) {
@@ -26,6 +26,7 @@ export default function SearchForm(props) {
 
   function onChangeCheckbox(e) {
     handleChange(e);
+    setIsShorts(!isShorts);
   }
 
   return (
@@ -38,14 +39,14 @@ export default function SearchForm(props) {
             type="text"
             id="films"
             placeholder="Фильмы"
-            values={search || savedSearch.name}
-            // value={values.name || savedSearch.name || ''}
+            values={search}
             onChange={handleChangeMovies}
           />
           <button
             className="search__form-button"
             type="submit"
             aria-label="Найти"
+            disabled={!isValid}
           />
         </fieldset>
         <fieldset className="search__form-fields search__form-fields_shorts">
@@ -54,7 +55,6 @@ export default function SearchForm(props) {
             type="checkbox"
             id="shorts"
             name="shorts"
-            checked={values.shorts || savedSearch.shorts || false}
             onChange={onChangeCheckbox}
           />
           <label className="search__form-checkbox-text" htmlFor="shorts">Короткометражки</label>
