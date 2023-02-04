@@ -3,11 +3,12 @@ import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-// import { numberCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
+// а оimport { numberCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
 
 export default function Movies({ loggedIn }) {
-
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isShorts, setIsShorts] = useState('');
 
   function readyMovie(beatMovie) {
     const newMovie = {
@@ -26,26 +27,47 @@ export default function Movies({ loggedIn }) {
     return newMovie;
   }
 
+  const onSearch = (searchWord, shorts) => {
+    setSearchTerm(searchWord);
+    setIsShorts(shorts);
+  };
+
   useEffect(() => {
     // здесь добавляю прелоадер
-    moviesApi.getAllMovies()
-      .then((allMovies) => {
-        console.log(allMovies);
-        setMovies(allMovies.map((e) => readyMovie(e)));
-        const newArray = allMovies.map((e) => readyMovie(e));
-        console.log(newArray);
-        const searchWord = 'и';
-        const shortArray = newArray.filter((e) => e.duration < 41).filter((e) => e.nameRU.includes(searchWord));
-        const sortArray = newArray.filter((e) => e.nameRU.includes(searchWord));
-        console.log(shortArray);
-        console.log(sortArray);
-        // здесь убираю прелоадер
-      });
-  }, []);
+    const localMovies = JSON.parse(localStorage.getItem('storage-movies'));
+    const newLocalMovies = localMovies.map((e) => readyMovie(e));
+    if (localMovies && localMovies.length > 0) {
+      if (isShorts) {
+        console.log('память короткие');
+        const filtredMovies = newLocalMovies.filter((e) => e.duration < 41)
+          .filter((e) => e.nameRU.includes(searchTerm));
+        console.log(filtredMovies);
+        // setMovies();
+      }
+      const filtredMovies = newLocalMovies.filter((e) => e.nameRU.includes(searchTerm));
+      console.log(newLocalMovies);
+      console.log(searchTerm);
+      console.log(filtredMovies);
+      // setMovies();
+      console.log('память не короткие');
+    } else {
+      moviesApi.getAllMovies()
+        .then((allMovies) => {
+          localStorage.setItem('storage-movies', JSON.stringify(allMovies));
+          const newMovies = allMovies.map((e) => readyMovie(e));
+          if (isShorts) {
+            setMovies(newMovies).filter((e) => e.duration < 41).filter((e) => e.nameRU.includes(searchTerm));
+          } setMovies(newMovies.filter((e) => e.nameRU.includes(searchTerm)));
+        });
+    }
+    // здесь убираю прелоадер
+  }, [searchTerm, isShorts]);
+
+  console.log(movies);
 
   return (
     <main className="main">
-      <SearchForm />
+      <SearchForm onSearch={onSearch} />
       <MoviesCardList movies={movies} />
     </main>
   );
