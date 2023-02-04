@@ -14,8 +14,7 @@ export default function SearchForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     // if (true) {
-    console.log(search);
-    onSearch(values, true);
+    onSearch(search, false);
     // } else {
     //   setErrorMessage('Введите слово для поиска!');
     // }

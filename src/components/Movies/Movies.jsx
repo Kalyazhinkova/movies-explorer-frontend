@@ -8,7 +8,7 @@ import mainApi from '../../utils/MainApi';
 export default function Movies({ loggedIn }) {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isShorts, setIsShorts] = useState('');
+  const [isShorts, setIsShorts] = useState(false);
 
   function readyMovie(beatMovie) {
     const newMovie = {
@@ -28,6 +28,8 @@ export default function Movies({ loggedIn }) {
   }
 
   const onSearch = (searchWord, shorts) => {
+    console.log(searchWord);
+    console.log(shorts);
     setSearchTerm(searchWord);
     setIsShorts(shorts);
   };
@@ -35,29 +37,27 @@ export default function Movies({ loggedIn }) {
   useEffect(() => {
     // здесь добавляю прелоадер
     const localMovies = JSON.parse(localStorage.getItem('storage-movies'));
-    const newLocalMovies = localMovies.map((e) => readyMovie(e));
     if (localMovies && localMovies.length > 0) {
       if (isShorts) {
-        console.log('память короткие');
-        const filtredMovies = newLocalMovies.filter((e) => e.duration < 41)
-          .filter((e) => e.nameRU.includes(searchTerm));
-        console.log(filtredMovies);
-        // setMovies();
+        setMovies(localMovies.map((e) => readyMovie(e))
+          .filter((e) => e.duration < 41)
+          .filter((e) => e.nameRU.includes(searchTerm)));
+      } else {
+        setMovies(localMovies.map((e) => readyMovie(e))
+          .filter((e) => e.nameRU.includes(searchTerm)));
       }
-      const filtredMovies = newLocalMovies.filter((e) => e.nameRU.includes(searchTerm));
-      console.log(newLocalMovies);
-      console.log(searchTerm);
-      console.log(filtredMovies);
-      // setMovies();
-      console.log('память не короткие');
     } else {
       moviesApi.getAllMovies()
         .then((allMovies) => {
           localStorage.setItem('storage-movies', JSON.stringify(allMovies));
-          const newMovies = allMovies.map((e) => readyMovie(e));
           if (isShorts) {
-            setMovies(newMovies).filter((e) => e.duration < 41).filter((e) => e.nameRU.includes(searchTerm));
-          } setMovies(newMovies.filter((e) => e.nameRU.includes(searchTerm)));
+            setMovies(allMovies.map((e) => readyMovie(e))
+              .filter((e) => e.duration < 41)
+              .filter((e) => e.nameRU.includes(searchTerm)));
+          } else {
+            setMovies(allMovies.map((e) => readyMovie(e))
+              .filter((e) => e.nameRU.includes(searchTerm)));
+          }
         });
     }
     // здесь убираю прелоадер
