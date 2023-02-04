@@ -70,7 +70,7 @@ export default function Movies({ loggedIn }) {
         });
     }
     setIsLoading(false);
-  }, [searchTerm, isShorts, movies]);
+  }, [searchTerm, isShorts]);
 
   const handleSavedCard = (movie) => {
     const methodApi = movie.saved ? mainApi.deleteMovie(movie) : mainApi.saveMovie(movie);
