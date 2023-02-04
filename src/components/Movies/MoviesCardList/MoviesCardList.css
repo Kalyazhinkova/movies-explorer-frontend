@@ -4,6 +4,7 @@
   align-items: center;
   max-width: 1280px;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .movies__items {
@@ -24,7 +25,7 @@
 }
 
 .movies__add {
-  margin: 0 0 80px 0;
+  margin: 60px 0 80px 0;
   padding: 0;
   background-color: #FFFFFF;
   border: solid rgba(232, 232, 232, 1);

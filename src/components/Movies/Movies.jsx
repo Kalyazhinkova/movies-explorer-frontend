@@ -4,13 +4,20 @@ import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-// а оimport { numberCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
+import { counterCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
 
 export default function Movies({ loggedIn }) {
+  const visibleCard = counterCard();
+
   const [movies, setMovies] = useState([]);
+  const [displayedCards, setDisplayedCards] = useState(visibleCard.init);
   const [searchTerm, setSearchTerm] = useState('');
   const [isShorts, setIsShorts] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const loadingMovies = () => {
+    setDisplayedCards(displayedCards + visibleCard.more);
+  };
 
   function readyMovie(beatMovie) {
     const newMovie = {
@@ -29,8 +36,9 @@ export default function Movies({ loggedIn }) {
     return newMovie;
   }
 
-  const onSearch = (searchWord, shorts) => {
-    setSearchTerm(searchWord);
+  const onSearch = ({ movie, shorts }) => {
+    console.log({ movie, shorts });
+    setSearchTerm(movie);
     setIsShorts(shorts);
   };
 
@@ -63,13 +71,23 @@ export default function Movies({ loggedIn }) {
     setIsLoading(false);
   }, [searchTerm, isShorts]);
 
-  // console.log(movies);
+  const handleSavedCard = () => {
+    console.log(1);
+  };
+
+  const error = false;
 
   return (
     <main className="main">
       <SearchForm onSearch={onSearch} />
       {isLoading && (<Preloader />)}
-      <MoviesCardList movies={movies} />
+      <MoviesCardList
+        movies={movies}
+        onSave={handleSavedCard}
+        error={error}
+        haveMovies={loadingMovies}
+        visible={movies.length > visibleCard}
+      />
     </main>
   );
 }

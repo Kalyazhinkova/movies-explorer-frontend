@@ -7,26 +7,28 @@ export default function SearchForm(props) {
     onSearch,
   } = props;
   const [errorMessage, setErrorMessage] = useState('');
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const { values, isValid, handleChange } = useFormValidation();
-  const [isShorts, setIsShorts] = useState(false);
+  // const { search, isShorts } = values;
+  // const [isShorts, setIsShorts] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      onSearch(search, isShorts);
+      console.log(values);
+      onSearch(values);
     } else {
       setErrorMessage('Введите слово для поиска!');
     }
   }
 
-  function handleChangeMovies(e) {
-    setSearch(e.target.value);
-  }
+  // function handleChangeMovies(e) {
+  //   setSearch(e.target.value);
+  // }
 
   function onChangeCheckbox(e) {
     handleChange(e);
-    setIsShorts(!isShorts);
+    // setIsShorts(!isShorts);
   }
 
   return (
@@ -38,9 +40,10 @@ export default function SearchForm(props) {
             className="search__form-input"
             type="text"
             id="films"
+            name="movie"
             placeholder="Фильмы"
-            values={search}
-            onChange={handleChangeMovies}
+            values={values.searchTerm}
+            onChange={handleChange}
           />
           <button
             className="search__form-button"
@@ -56,6 +59,7 @@ export default function SearchForm(props) {
             id="shorts"
             name="shorts"
             onChange={onChangeCheckbox}
+            checked={values.isShorts}
           />
           <label className="search__form-checkbox-text" htmlFor="shorts">Короткометражки</label>
         </fieldset>

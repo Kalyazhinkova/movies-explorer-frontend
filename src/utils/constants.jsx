@@ -6,7 +6,7 @@ export const apiMainConfig = {
   },
 };
 
-export const numberCard = () => {
+export const counterCard = () => {
   const number = { init: 12, more: 3 };
 
   if (window.innerWidth < 911) {
@@ -18,4 +18,5 @@ export const numberCard = () => {
     number.init = 5;
     number.more = 2;
   }
+  return number;
 };

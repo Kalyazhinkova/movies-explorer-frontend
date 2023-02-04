@@ -7,7 +7,8 @@ function useFormValidation() {
 
   const handleChange = (e) => {
     const input = e.target;
-    setValues({ ...values, [input.name]: input.value });
+    const value = input.type === 'checkbox' ? input.checked : input.value;
+    setValues({ ...values, [input.name]: value });
     setErrors({ ...errors, [input.name]: input.validationMessage });
     setIsValid(input.closest('form').checkValidity());
   };

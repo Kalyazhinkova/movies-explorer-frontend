@@ -2,15 +2,16 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 export default function MoviesCardList(props) {
-  const { movies } = props;
-  console.log(movies);
+  const {
+    movies, onSave, error, haveMovies, visible,
+  } = props;
 
   return (
     <article className="movies">
       <ul className="movies__items">
-        {movies.map((movie) => <MovieCard movie={movie} />)}
+        {movies.map((movie) => <MovieCard movie={movie} onSave={onSave} />)}
       </ul>
-      <button type="button" className="movies__add">Ещё</button>
+      {!error && visible && (<button type="button" className="movies__add" onClick={haveMovies} >Ещё</button>)}
     </article>
 
   );
