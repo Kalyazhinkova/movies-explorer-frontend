@@ -60,7 +60,7 @@ function App() {
     mainApi
       .setNewUserInfo(data)
       .then((userData) => {
-        setCurrentUser({ ...currentUser, ...userData });
+        setCurrentUser({ ...currentUser, ...userData.data });
       })
       .catch((err) => {
         console.log(err);

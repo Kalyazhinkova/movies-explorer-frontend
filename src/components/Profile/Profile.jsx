@@ -6,19 +6,13 @@ import './Profile.css';
 
 export default function Profile(props) {
   const { onChange, onLogOut, statusRequest } = props;
-
   const currentUser = useContext(CurrentUserContext);
-
   const [isMessage, setIsMessage] = useState('');
-
   const {
     values,
     errors, isValid, handleChange,
-  } = useFormValidation();
-
-  // const [email, setEmail] = useState(currentUser.email);
-  // const [name, setName] = useState(currentUser.name);
-  // const [buttonDisabled, setIsButtonDisabled] = useState(true);
+  } = useFormValidation(currentUser);
+  const { name, email } = values;
 
   function handleMessage() {
     if (statusRequest) {
@@ -46,25 +40,6 @@ export default function Profile(props) {
   useEffect(() => {
     handleMessage();
   }, [statusRequest]);
-
-  // useEffect(() => {
-  //   setIsButtonDisabled(name === currentUser.name && email === currentUser.email);
-  // }, [name, email, currentUser.name, currentUser.email]);
-
-  // useEffect(() => {
-  //   setName(currentUser.name);
-  //   setEmail(currentUser.email);
-  // }, [currentUser.name, currentUser.email]);
-
-  // function handleChangeName(e) {
-  //   setName(e.target.value);
-  // }
-
-  // function handleChangeEmail(e) {
-  //   setEmail(e.target.value);
-  // }
-
-  const { name, email } = values;
 
   function handleSubmit(e) {
     e.preventDefault();
