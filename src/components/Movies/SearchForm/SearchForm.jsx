@@ -4,7 +4,7 @@ import useFormValidation from '../../../hooks/UseFormValidation';
 
 export default function SearchForm(props) {
   const {
-    // onSearchMovies,
+    onSearchMovies,
     savedSearch = {},
   } = props;
   const [errorMessage, setErrorMessage] = useState('');
@@ -13,12 +13,12 @@ export default function SearchForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (true) {
-      console.log(search);
-      // onSearchMovies(values);
-    } else {
-      setErrorMessage('Введите слово для поиска!');
-    }
+    // if (true) {
+    console.log(search);
+    onSearchMovies(values);
+    // } else {
+    //   setErrorMessage('Введите слово для поиска!');
+    // }
   }
 
   function handleChangeMovies(e) {
