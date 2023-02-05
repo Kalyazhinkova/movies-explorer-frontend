@@ -4,7 +4,7 @@
 http://kalyazhinkova.mesto.nomoredomains.club/
 
 Ссылка на пулреквест
-
+https://github.com/Kalyazhinkova/movies-explorer-frontend/pull/2
 
 Начала разработки фронтенда для дипломного проекта Яндекс.Практикум
 
