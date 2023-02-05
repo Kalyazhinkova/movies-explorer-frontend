@@ -1,26 +1,55 @@
-import { useState, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+import { useState, useEffect, useContext } from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import Preloader from './Preloader/Preloader';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-import { counterCard } from '../../utils/constants'; // отображаемое кол-во карточек на странице
-import SavedMovies from './SavedMovies';
+import { counterCard } from '../../utils/constants';
+import { CurrentUserContext } from '../../contexts/User';
 
 export default function Movies({ loggedIn }) {
+  const currentUser = useContext(CurrentUserContext);
+  const { _id } = currentUser;
   const visibleCard = counterCard();
 
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [displayedCards, setDisplayedCards] = useState(visibleCard.init);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isShorts, setIsShorts] = useState(false);
+  const [savedSearch, setSavedSearch] = useState(JSON.parse(localStorage.getItem('search') || '{}'));
   const [isLoading, setIsLoading] = useState(false);
 
   const loadingMovies = () => {
-    setDisplayedCards(displayedCards + visibleCard.more);
+    const { more } = counterCard();
+    setDisplayedCards(displayedCards + more);
   };
 
-  function readyMovie(beatMovie) {
+  const onSearch = ({ movie = '', shorts = false }, films) => {
+    localStorage.setItem('search', JSON.stringify({ movie, shorts }));
+    setSavedSearch({ movie, shorts });
+    const newMovies = films.filter((element) => {
+      if (shorts) {
+        return element.duration <= 40 && element.nameRU.toLowerCase().includes(movie.toLowerCase());
+      }
+      return element.nameRU.toLowerCase().includes(movie.toLowerCase());
+    });
+    setFilteredMovies(newMovies);
+  };
+
+  useEffect(() => {
+    Promise.all([moviesApi.getAllMovies(), mainApi.getMovies()])
+      .then(([beatMovies, mainMovies]) => {
+        let unionMovies = [];
+        mainMovies.forEach((mainMovie) => {
+          unionMovies = moviesApi.saveMovie(mainMovie);
+        });
+        setMovies(unionMovies);
+        onSearch(savedSearch, unionMovies);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const saveMovie = (beatMovie) => {
     const newMovie = {
       country: beatMovie.country,
       director: beatMovie.director,
@@ -34,65 +63,40 @@ export default function Movies({ loggedIn }) {
       thumbnail: `https://api.nomoreparties.co${beatMovie.image.formats.thumbnail.url}`,
       movieId: beatMovie.id,
     };
-    return newMovie;
-  }
-
-  const onSearch = ({ movie, shorts }) => {
-    console.log({ movie, shorts });
-    setSearchTerm(movie);
-    setIsShorts(shorts);
+    mainApi.saveMovie(newMovie)
+      .then((serverMovie) => {
+        const updatedMovies = moviesApi.saveMovie(serverMovie);
+        setMovies(updatedMovies);
+        onSearch(savedSearch, updatedMovies);
+      });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    const localMovies = JSON.parse(localStorage.getItem('storage-movies'));
-    if (localMovies && localMovies.length > 0) {
-      if (isShorts) {
-        setMovies(localMovies.map((e) => readyMovie(e))
-          .filter((e) => e.duration < 41)
-          .filter((e) => e.nameRU.includes(searchTerm)));
-      } else {
-        setMovies(localMovies.map((e) => readyMovie(e))
-          .filter((e) => e.nameRU.includes(searchTerm)));
-      }
-    } else {
-      moviesApi.getAllMovies()
-        .then((allMovies) => {
-          localStorage.setItem('storage-movies', JSON.stringify(allMovies));
-          if (isShorts) {
-            setMovies(allMovies.map((e) => readyMovie(e))
-              .filter((e) => e.duration < 41)
-              .filter((e) => e.nameRU.includes(searchTerm)));
-          } else {
-            setMovies(allMovies.map((e) => readyMovie(e))
-              .filter((e) => e.nameRU.includes(searchTerm)));
-          }
-        });
-    }
-    setIsLoading(false);
-  }, [searchTerm, isShorts]);
+  const deleteMovie = (movie) => {
+    mainApi.deleteMovie(movie._id)
+      .then(() => {
+        const updatedMovies = moviesApi.deleteMovie(movie.movieId);
+        setMovies(updatedMovies);
+        onSearch(savedSearch, updatedMovies);
+      });
+  };
 
   const handleSavedCard = (movie) => {
-    const methodApi = movie.saved ? mainApi.deleteMovie(movie) : mainApi.saveMovie(movie);
-    methodApi
-      .then((updatedMovie) => {
-        setMovies((card) => card.map((flm) => (flm.movieId === updatedMovie.movieId ? updatedMovie : flm)));
-      })
-      .catch((err) => console.log(err));
+    if (movie.saved && movie.owner === _id) {
+      deleteMovie(movie);
+    } else {
+      saveMovie(movie);
+    }
   };
-
-  const error = false;
 
   return (
     <main className="main">
-      <SearchForm onSearch={onSearch} />
+      <SearchForm onSearch={(search) => onSearch(search, movies)} savedSearch={savedSearch} required />
       {isLoading && (<Preloader />)}
       <MoviesCardList
-        movies={movies}
+        movies={filteredMovies.slice(0, displayedCards)}
         onSave={handleSavedCard}
-        error={error}
-        haveMovies={loadingMovies}
-        visible={movies.length > visibleCard}
+        loadMovies={loadingMovies}
+        hasMore={filteredMovies.length >= displayedCards}
       />
     </main>
   );

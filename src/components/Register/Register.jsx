@@ -4,37 +4,18 @@ import useFormValidation from '../../hooks/UseFormValidation';
 import './Register.css';
 
 export default function Register(props) {
-  const { onRegister, statusRequest } = props;
+  const { onRegister, errorRequest } = props;
 
-  const [isMessage, setIsMessage] = useState('');
-
-  function handleMessage() {
-    if (statusRequest) {
-      switch (statusRequest) {
-        case '400':
-          setIsMessage('Ошибка в данных');
-          break;
-        case '409':
-          setIsMessage('Пользователь с такими данными уже существует');
-          break;
-        case '500':
-          setIsMessage('Ошибка на сервере.');
-          break;
-        default:
-          setIsMessage('Произошла ошибка. Попробуйте еще раз');
-          break;
-      }
-    }
-  }
-
-  useEffect(() => {
-    handleMessage();
-  }, [statusRequest]);
+  const [apiError, setApiError] = useState('');
 
   const {
     values, errors, isValid, handleChange,
   } = useFormValidation();
   const { name, email, password } = values;
+
+  useEffect(() => {
+    setApiError(errorRequest);
+  }, [errorRequest]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -92,7 +73,7 @@ export default function Register(props) {
             <span className="form__input-error">{errors.password}</span>
           </label>
         </fieldset>
-        <span className="form__input-error">{isMessage}</span>
+        <span className="form__input-error">{apiError}</span>
         <div className="form__submit">
           <button type="submit" className="form__submit-button" disabled={!isValid}>
             Зарегистрироваться

@@ -14,6 +14,7 @@ import mainApi from '../../utils/MainApi';
 
 import { CurrentUserContext } from '../../contexts/User';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import moviesApi from '../../utils/MoviesApi';
 
 function App() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function App() {
   // Состояние зарегистрированного пользователя
   const [loggedIn, setLoggedIn] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
-  const [statusRequest, setStatusRequest] = useState(false);
+  const [errorRequest, setErrorRequest] = useState(false);
   // const [login, setLogin] = useState(false);
 
   const logOut = useCallback(() => {
@@ -33,6 +34,9 @@ function App() {
     setCurrentUser({});
     localStorage.removeItem('jwt');
     navigate('/');
+    mainApi.exit();
+    localStorage.clear();
+    moviesApi.exit();
   }, []);
 
   function checkToken() {
@@ -79,7 +83,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err.message);
-        setStatusRequest(err.message);
+        setErrorRequest(err.message);
       });
   }, []);
 
@@ -95,15 +99,16 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
+        setErrorRequest(err.message);
       });
   }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/signup" element={!isAuth && <Register onRegister={handleRegistration} statusRequest={statusRequest} />} />
-        <Route path="/signin" element={!isAuth && <Login onLogin={handleLogin} statusRequest={statusRequest} />} />
+        <Route path="/signup" element={!isAuth && <Register onRegister={handleRegistration} errorRequest={errorRequest} />} />
+        <Route path="/signin" element={!isAuth && <Login onLogin={handleLogin} errorRequest={errorRequest} />} />
         <Route
           path="/"
           element={(
@@ -120,7 +125,7 @@ function App() {
           element={(
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} />
-              <Profile onChange={handleUpdateUser} onLogOut={logOut} statusRequest={statusRequest} />
+              <Profile onChange={handleUpdateUser} onLogOut={logOut} statusRequest={errorRequest} />
             </ProtectedRoute>
           )}
         />

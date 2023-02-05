@@ -5,41 +5,18 @@ import useFormValidation from '../../hooks/UseFormValidation';
 import './Profile.css';
 
 export default function Profile(props) {
-  const { onChange, onLogOut, statusRequest } = props;
+  const { onChange, onLogOut, errorRequest } = props;
   const currentUser = useContext(CurrentUserContext);
-  const [isMessage, setIsMessage] = useState('');
+  const [apiError, setApiError] = useState('');
   const {
     values,
     errors, isValid, handleChange,
   } = useFormValidation(currentUser);
   const { name, email } = values;
 
-  function handleMessage() {
-    if (statusRequest) {
-      console.log(statusRequest);
-      switch (statusRequest) {
-        case '200':
-          setIsMessage('Данные обновлены!');
-          break;
-        case '400':
-          setIsMessage('Ошибка в данных!');
-          break;
-        case '409':
-          setIsMessage('Пользователь с такими данными уже существует!');
-          break;
-        case 500:
-          setIsMessage('Ошибка на сервере.');
-          break;
-        default:
-          setIsMessage(' Что-то пошло не так...');
-          break;
-      }
-    }
-  }
-
   useEffect(() => {
-    handleMessage();
-  }, [statusRequest]);
+    setApiError(errorRequest);
+  }, [errorRequest]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -91,7 +68,7 @@ export default function Profile(props) {
             <span className="profile__input-error">{errors.email}</span>
           </label>
         </fieldset>
-        <span className="profile__input-error">{isMessage}</span>
+        <span className="profile__input-error">{apiError}</span>
         <div className="profile__submit">
           <button type="submit" className="profile__submit-button" disabled={!isValid}>
             Редактировать

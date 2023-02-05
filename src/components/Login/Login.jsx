@@ -3,37 +3,22 @@ import { Link } from 'react-router-dom';
 import useFormValidation from '../../hooks/UseFormValidation';
 
 export default function Login(props) {
-  const { onLogin, statusRequest } = props;
+  const { onLogin, errorRequest } = props;
 
-  const [isMessage, setIsMessage] = useState('');
-
-  function handleMessage() {
-    if (statusRequest) {
-      switch (statusRequest) {
-        case '400':
-          setIsMessage('Ошибка в данных');
-          break;
-        case '401':
-          setIsMessage('Пользователь не найден!');
-          break;
-        case '500':
-          setIsMessage('Ошибка на сервере.');
-          break;
-        default:
-          setIsMessage(' Что-то пошло не так...');
-          break;
-      }
-    }
-  }
-
-  useEffect(() => {
-    handleMessage();
-  }, [statusRequest]);
+  const [apiError, setApiError] = useState('');
 
   const {
-    values, errors, isValid, handleChange,
+    values, errors, isValid, handleChange, resetForm,
   } = useFormValidation();
   const { email, password } = values;
+
+  useEffect(() => {
+    setApiError(errorRequest);
+  }, [errorRequest]);
+
+  useEffect(() => {
+    resetForm();
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -77,7 +62,7 @@ export default function Login(props) {
             <span className="form__input-error">{errors.password}</span>
           </label>
         </fieldset>
-        <span className="form__input-error">{isMessage}</span>
+        <span className="form__input-error">{apiError}</span>
         <div className="form__submit">
           <button type="submit" className="form__submit-button" disabled={!isValid}>
             Войти

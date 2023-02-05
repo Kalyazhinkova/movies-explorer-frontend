@@ -1,18 +1,24 @@
 import './SearchForm.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useFormValidation from '../../../hooks/UseFormValidation';
 
 export default function SearchForm(props) {
   const {
     onSearch,
+    savedSearch = { movie: '', shorts: false },
   } = props;
   const [errorMessage, setErrorMessage] = useState('');
-  const { values, isValid, handleChange } = useFormValidation();
+  const {
+    values, isValid, handleChange, resetForm,
+  } = useFormValidation();
+
+  useEffect(() => {
+    resetForm(savedSearch);
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      console.log(values);
       onSearch(values);
     } else {
       setErrorMessage('Введите слово для поиска!');
@@ -30,7 +36,7 @@ export default function SearchForm(props) {
             id="films"
             name="movie"
             placeholder="Фильмы"
-            values={values.searchTerm}
+            value={values.movie || ''}
             onChange={handleChange}
             required
           />
@@ -48,7 +54,7 @@ export default function SearchForm(props) {
             id="shorts"
             name="shorts"
             onChange={handleChange}
-            checked={values.isShorts}
+            checked={values.shorts || false}
           />
           <label className="search__form-checkbox-text" htmlFor="shorts">Короткометражки</label>
         </fieldset>
