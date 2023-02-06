@@ -25,6 +25,11 @@ export default function SearchForm(props) {
     }
   }
 
+  function handleCheckbox(e) {
+    handleChange(e);
+    onSearch({ ...values, shorts: e.target.checked });
+  }
+
   return (
     <article className="search" aria-label="Поиск">
       <form className="search__form" name="search" onSubmit={handleSubmit} noValidate>
@@ -53,7 +58,7 @@ export default function SearchForm(props) {
             type="checkbox"
             id="shorts"
             name="shorts"
-            onChange={handleChange}
+            onChange={handleCheckbox}
             checked={values.shorts || false}
           />
           <label className="search__form-checkbox-text" htmlFor="shorts">Короткометражки</label>

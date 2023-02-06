@@ -60,7 +60,7 @@ function App() {
     checkToken();
   }, [loggedIn]);
 
-  const handleUpdateUser = useCallback((data) => {
+  const handleUpdateUser = (data) => {
     mainApi
       .setNewUserInfo(data)
       .then((userData) => {
@@ -69,25 +69,9 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
 
-  const handleRegistration = useCallback((info) => {
-    mainApi.register(info)
-      .then((result) => {
-        if (result) {
-          setLoggedIn(true);
-          navigate('/signin');
-        } else {
-          console.log('ошибка', 'Не введен пользователь');
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setErrorRequest(err.message);
-      });
-  }, []);
-
-  const handleLogin = useCallback((info) => {
+  const handleLogin = (info) => {
     mainApi.login(info)
       .then((result) => {
         if (result && result.token) {
@@ -102,7 +86,22 @@ function App() {
         console.log(err.message);
         setErrorRequest(err.message);
       });
-  }, []);
+  };
+
+  const handleRegistration = (info) => {
+    mainApi.register(info)
+      .then((result) => {
+        if (result) {
+          handleLogin({ email: info.email, password: info.password });
+        } else {
+          console.log('ошибка', 'Не введен пользователь');
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setErrorRequest(err.message);
+      });
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

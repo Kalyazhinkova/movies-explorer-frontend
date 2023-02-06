@@ -37,9 +37,11 @@ export default function Movies({ loggedIn }) {
   };
 
   useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    mainApi.setToken(jwt);
     Promise.all([moviesApi.getAllMovies(), mainApi.getMovies()])
       .then(([beatMovies, mainMovies]) => {
-        let unionMovies = [];
+        let unionMovies = beatMovies;
         mainMovies.forEach((mainMovie) => {
           unionMovies = moviesApi.saveMovie(mainMovie);
         });

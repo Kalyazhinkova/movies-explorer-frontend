@@ -8,8 +8,8 @@ import { counterCard } from '../../utils/constants';
 import { CurrentUserContext } from '../../contexts/User';
 
 export default function SavedMovies({ loggedIn }) {
-  const currentUser = useContext(CurrentUserContext);
-  const { _id } = currentUser;
+  // const currentUser = useContext(CurrentUserContext);
+  // const { _id } = currentUser;
   const visibleCard = counterCard();
 
   const [movies, setMovies] = useState([]);
@@ -25,7 +25,7 @@ export default function SavedMovies({ loggedIn }) {
   const onSearch = ({ movie = '', shorts = false }, films) => {
     localStorage.setItem('search', JSON.stringify({ movie, shorts }));
     setSavedSearch({ movie, shorts });
-    const newMovies = films.filter((element) => element.owner === _id)
+    const newMovies = films
       .filter((element) => {
         if (shorts) {
           return element.duration <= 40 && element.nameRU.toLowerCase().includes(movie.toLowerCase());
@@ -38,9 +38,8 @@ export default function SavedMovies({ loggedIn }) {
   useEffect(() => {
     mainApi.getMovies()
       .then((mainMovies) => {
-        const myMainMovie = mainMovies.filter((element) => element.owner === _id);
-        setMovies(myMainMovie);
-        setFilteredMovies(myMainMovie);
+        setMovies(mainMovies);
+        setFilteredMovies(mainMovies);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -48,11 +47,11 @@ export default function SavedMovies({ loggedIn }) {
   const deleteMovie = (movie) => {
     mainApi.deleteMovie(movie._id)
       .then(() => {
-        const updatedMovies = moviesApi.deleteMovie(movie.movieId);
-        const myUpdatedMovies = updatedMovies.filter((element) => element.owner === _id);
-        console.log('updMovoes', myUpdatedMovies);
-        setFilteredMovies(myUpdatedMovies);
-        onSearch(savedSearch, myUpdatedMovies);
+        moviesApi.deleteMovie(movie.movieId);
+        const updatedMovies = movies.filter(({ _id }) => movie._id !== _id);
+        setMovies(updatedMovies);
+        setFilteredMovies(updatedMovies);
+        onSearch(savedSearch, updatedMovies);
       });
   };
 
