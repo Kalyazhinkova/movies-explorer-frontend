@@ -96,6 +96,11 @@
   cursor: pointer;
 }
 
+.search__form-button:disabled {
+  background-image: url("../../../images//find-button-disabled.svg");
+  cursor: no-drop;
+}
+
 .search__form-button:hover {
   opacity: 0.6;
   background-color: rgba (249, 249, 249, 0.6);
@@ -107,10 +112,15 @@
   width: 36px;
   height: 20px;
   appearance: none;
-  background: rgba(43, 224, 128, 1);
+  background: #E8E8E8;
+  
   outline: none;
   border-radius: 20px;
   transition: 0.5s;
+}
+
+.search__form-checkbox:checked {
+  background: rgba(43, 224, 128, 1);
 }
 
 .search__form-checkbox:before {

@@ -1,5 +1,11 @@
 Ссылка на макет проекта https://disk.yandex.ru/d/TV4CrCJcNQDoAA
 
+Ссылка на сайт
+http://kalyazhinkova.mesto.nomoredomains.club/
+
+Ссылка на пулреквест
+https://github.com/Kalyazhinkova/movies-explorer-frontend/pull/2
+
 Начала разработки фронтенда для дипломного проекта Яндекс.Практикум
 
 In the project directory, you can run:
