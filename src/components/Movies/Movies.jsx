@@ -25,6 +25,7 @@ export default function Movies({ loggedIn }) {
   };
 
   const onSearch = ({ movie = '', shorts = false }, films) => {
+    setIsLoading(true);
     localStorage.setItem('search', JSON.stringify({ movie, shorts }));
     setSavedSearch({ movie, shorts });
     const newMovies = films.filter((element) => {
@@ -34,9 +35,11 @@ export default function Movies({ loggedIn }) {
       return element.nameRU.toLowerCase().includes(movie.toLowerCase());
     });
     setFilteredMovies(newMovies);
+    setIsLoading(false);
   };
 
   useEffect(() => {
+    setIsLoading(true);
     const jwt = localStorage.getItem('jwt');
     mainApi.setToken(jwt);
     Promise.all([moviesApi.getAllMovies(), mainApi.getMovies()])
@@ -47,8 +50,12 @@ export default function Movies({ loggedIn }) {
         });
         setMovies(unionMovies);
         onSearch(savedSearch, unionMovies);
+        setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
   }, []);
 
   const saveMovie = (beatMovie) => {

@@ -20,11 +20,14 @@ export default function MovieCard(props) {
             <h2 className="movie__title">{movie.nameRU}</h2>
             <p className="movie__time">{duration}</p>
           </div>
-          <img
-            className="movie__image"
-            src={movie.thumbnail}
-            alt={`Постер к фильму:${movie.nameRU}`}
-          />
+          <a href={movie.trailerLink} className="movies__link" target="_blank" rel="noreferrer">
+            <img
+              className="movie__image"
+              src={movie.thumbnail}
+              alt={`Постер к фильму:${movie.nameRU}`}
+            />
+          </a>
+
           {location.pathname === '/movies' && (
             <button
               className={

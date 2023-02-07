@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {
   const navigate = useNavigate();
-  const goBack = () => navigate(-1);
+  const goBack = () => navigate(-2);
+
   return (
     <main className="not-found">
       <article className="not-found__article">

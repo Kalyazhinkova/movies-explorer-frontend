@@ -8,6 +8,8 @@ export default function Profile(props) {
   const { onChange, onLogOut, errorRequest } = props;
   const currentUser = useContext(CurrentUserContext);
   const [apiError, setApiError] = useState('');
+  const [succesMessage, setSuccesMessage] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
   const {
     values,
     errors, isValid, handleChange,
@@ -18,10 +20,14 @@ export default function Profile(props) {
     setApiError(errorRequest);
   }, [errorRequest]);
 
+  useEffect(() => {
+    setIsDisabled(currentUser.name === name && currentUser.email === email);
+  }, [name, email, currentUser.name, currentUser.email]);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      onChange({ name, email });
+      onChange({ name, email }, setApiError, setSuccesMessage);
     }
   }
 
@@ -69,8 +75,9 @@ export default function Profile(props) {
           </label>
         </fieldset>
         <span className="profile__input-error">{apiError}</span>
+        <span className="profile__input-message">{succesMessage}</span>
         <div className="profile__submit">
-          <button type="submit" className="profile__submit-button" disabled={!isValid}>
+          <button type="submit" className="profile__submit-button" disabled={!isValid || isDisabled}>
             Редактировать
           </button>
 

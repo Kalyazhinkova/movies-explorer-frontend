@@ -77,6 +77,13 @@
   color: #ee3465;
 }
 
+.profile__input-message {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #2BE080;
+}
+
 .profile__submit {
   margin: 196px 0 0 0;
   display: flex;

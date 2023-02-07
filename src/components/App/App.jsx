@@ -1,6 +1,8 @@
 import './App.css';
 import { useState, useEffect, useCallback } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Route, Routes, useNavigate, Navigate, useLocation,
+} from 'react-router-dom';
 import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../Movies/SavedMovies';
@@ -18,6 +20,7 @@ import moviesApi from '../../utils/MoviesApi';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Переменная состояния пользователя
   const [currentUser, setCurrentUser] = useState({});
@@ -27,6 +30,8 @@ function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [errorRequest, setErrorRequest] = useState(false);
   // const [login, setLogin] = useState(false);
+
+  const routes = ['/signin', '/signup', '/saved-movies', '/movies', '/profile', '/'];
 
   const logOut = useCallback(() => {
     setLoggedIn(false);
@@ -57,17 +62,22 @@ function App() {
   }
 
   useEffect(() => {
-    checkToken();
+    if (routes.includes(location.pathname)) {
+      checkToken();
+    }
   }, [loggedIn]);
 
-  const handleUpdateUser = (data) => {
+  const handleUpdateUser = (data, setApiError, setApiSucces) => {
     mainApi
       .setNewUserInfo(data)
       .then((userData) => {
         setCurrentUser({ ...currentUser, ...userData.data });
+        setApiError('');
+        setApiSucces('Данные успешно обновлены!');
       })
       .catch((err) => {
         console.log(err);
+        setApiError(err.message);
       });
   };
 
@@ -106,8 +116,8 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/signup" element={!isAuth && <Register onRegister={handleRegistration} errorRequest={errorRequest} />} />
-        <Route path="/signin" element={!isAuth && <Login onLogin={handleLogin} errorRequest={errorRequest} />} />
+        <Route path="/signup" element={isAuth ? <Navigate to="/movies" /> : <Register onRegister={handleRegistration} errorRequest={errorRequest} />} />
+        <Route path="/signin" element={isAuth ? <Navigate to="/movies" /> : <Login onLogin={handleLogin} errorRequest={errorRequest} />} />
         <Route
           path="/"
           element={(
@@ -148,7 +158,8 @@ function App() {
             </ProtectedRoute>
         )}
         />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/404" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
     </CurrentUserContext.Provider>
   );
